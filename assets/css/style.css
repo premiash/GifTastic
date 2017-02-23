@@ -1,0 +1,85 @@
+html, body {
+	/*background: url("../images/crystal7-bg.jpg");*/
+	background-color: #CDCED0;
+	height: 100%;
+	background-repeat: repeat;
+}
+
+.navbar-brand {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 25px;
+	letter-spacing: 3px;
+	
+}
+
+.navbar-default {
+	background-color: #384255;
+	border-color: #384255;
+	
+}
+.navbar-default .navbar-brand {
+	color: #bdbbbb;
+	padding-bottom: 0px;
+}
+
+.navbar {
+	margin-bottom: 0px;
+	border-radius: 0px;
+
+}
+
+#animal-form {
+	padding-top: 10px;
+	float: right;
+	
+}
+
+button,
+    div,
+    
+    input {
+      margin: 10px;
+    }
+
+label {
+	color: #bdbbbb;
+	padding-right: 10px;
+	font-weight: normal;
+}
+
+#add-animal {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+#animals-view {
+	margin-left: 20px;
+}
+.animal {
+	background-color: #303030;
+	border: 0px;
+	color: #CDCED0;
+	width: 100px;
+	height: 30px;
+}
+
+footer
+{
+	background-color: #000;
+    color: #bdbbbb;
+    text-align: center;
+    font-size: 10px;
+    padding: 15px;
+    height: 50px;
+}
+
+.wrapper {
+  	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/*margin: 0 auto -50px;*/
+}
+
+.push {
+  	height: 50px;
+}
