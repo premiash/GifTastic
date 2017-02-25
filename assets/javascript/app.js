@@ -43,10 +43,6 @@
         renderButtons();
       });
 
-
-
-
-
       var arr = [];
       var queryURL = "";
       var displayAnimalImages = function(count, tagName) {
@@ -62,7 +58,7 @@
           return;
         }
 
-        queryURL = "http://api.giphy.com/v1/gifs/random?tag=" + tagName + "&api_key=dc6zaTOxFJmzC";
+        queryURL = "http://api.giphy.com/v1/gifs/random?tag=" + tagName + "&api_key=dc6zaTOxFJmzC&limit=10&rating=";
         //var queryURL = "http://api.giphy.com/v1/gifs/random?tag=puppy&api_key=dc6zaTOxFJmzC";
         $.ajax({
           url: queryURL,
