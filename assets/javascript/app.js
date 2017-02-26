@@ -1,6 +1,6 @@
 
       
-      var animals = ["Cow", "Cat", "Puppy", "Parrot"];
+      var animals = ["Cow", "Cat", "Puppy", "Parrot", "Rooster", "Lion", "Panther", "Monkey"];
     
       function renderButtons() {
 
@@ -19,11 +19,14 @@
           $("#animals-view").append(a);
 
           a.attr("id", animals[i]);
+
           $("#"+animals[i]).click(function(event) {
+
             tagName = $(event.target).attr("id");
-            arr = [];
+
             $("#displayImages").html("");
-            displayAnimalImages(0, tagName)
+            
+            searchGiffy(tagName)
           });
         }
       }
@@ -43,36 +46,52 @@
         renderButtons();
       });
 
-      var arr = [];
       var queryURL = "";
-      var displayAnimalImages = function(count, tagName) {
-        if (count == 11) {
-          console.log("runRequests Success", arr);
-          var imgTags = "";
-          for(i=0; i<10; i++)
-          {
-             imgTags += "<img data-gifffer='"+ arr[i].data.image_url  +"' data-gifffer-width='250' data-gifffer-height='150'/>"
-          }
-          $("#displayImages").html(imgTags); //https://media.giphy.com/media/3o8doVAxrMjXbIHaU0/giphy.gif
-          Gifffer();
-          return;
-        }
+      var searchGiffy = function(tagName) {
 
-        queryURL = "http://api.giphy.com/v1/gifs/random?tag=" + tagName + "&api_key=dc6zaTOxFJmzC&limit=10&rating=";
-        //var queryURL = "http://api.giphy.com/v1/gifs/random?tag=puppy&api_key=dc6zaTOxFJmzC";
+        queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+                    tagName + "&api_key=dc6zaTOxFJmzC&limit=10";
         $.ajax({
           url: queryURL,
-          success: function(data) {
-            arr.push(data);
+          method: "GET",
+          success: function(response) {
+            displayAnimalGifs(response.data);
           },
-          error: function() {
-            arr.push({});
-            console.error("runRequests Error", "tag", arguments);
-          },
-          complete: function() {
-            displayAnimalImages(++count, tagName);
-          }
+
         });
       };
+
+      var stillImageUrls = [];
+      var gifUrls = [];
+      var displayAnimalGifs = function(data)
+      {
+          var gifSection;
+          stillImageUrls = [];
+          gifUrls = [];
+          for(i=0; i<data.length; i++)
+          {
+            stillImageUrls.push(data[i].images.downsized_still.url);
+            gifUrls.push(data[i].images.fixed_height.url);
+
+             gifSection = $("<div class='search-result-item'><div><p>Rating:"+ data[i].rating +"</p>" + 
+                            "<img id='" + i + "' src='"+ stillImageUrls[i]  +"' data-state='still' width='250' height='150'/>" + 
+                            "</div></div>");
+             $("#displayImages").append(gifSection); 
+             $('#'+i).click(function(event) {
+                  var state = $(this).attr("data-state");
+                  if(state == "still")
+                  {
+                    $(this).attr('src', gifUrls[this.id]);
+                    $(this).attr('data-state', 'animate');
+                  }
+                  else
+                  {
+                    $(this).attr('src', stillImageUrls[this.id]);
+                    $(this).attr('data-state', 'still');
+                  }
+             });
+          }
+          return;
+      }
 
       renderButtons();
